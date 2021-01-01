@@ -1,0 +1,38 @@
+body {
+    margin: 0;
+}
+article {
+	position: relative;
+	margin: auto;
+	width: 80%;
+}
+
+.step {
+	border: 2px solid rgba(25,51,0, 1);
+	background-color: rgba(25,51,0, 0);
+	height: 400%;
+	width: 300px;
+    opacity: 20%;
+    margin-bottom: 75%;
+
+}
+
+#treetops {
+    margin: 0;
+    position: relative;
+    float: right;
+    height: 143%;
+    z-index: 0;
+}
+
+#treevid {
+    height: 100%;
+    position: sticky;
+    float: right;
+    top: 0;
+    margin-right: 0%;
+    opacity: 1;
+    z-index: 0
+}
+
+
