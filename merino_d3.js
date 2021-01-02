@@ -3,8 +3,8 @@
 // create SVG object for pictogram
 var svgPict = d3.select("#mapHApict")
                 .append("svg")
-                .attr("width", "100vw")
-                .attr("height", "100vh");
+                .attr("width", "100%")
+                .attr("height", "100%");
 
 // defining icon
 svgPict.append("defs")
@@ -250,7 +250,18 @@ var ohCentroid = {
     cent: [40.2862, -82.7937]
 }
 
-var centroids = [vtCentroid, ohCentroid]
+var nyCentroid = {
+    name: "New York, NY",
+    cent: [40.7216374832643, -73.9029495172901]
+}
+
+var bosCentroid = {
+    name: "Boston, MA",
+    cent: [42.30491919511341, -71.07593614677295]
+}
+
+var centroids = [vtCentroid, ohCentroid];
+var centroidDairy = [nyCentroid, bosCentroid];
 
 var lakeCentroid = {
     name: "Lake Erie",
@@ -283,8 +294,10 @@ var heightHA = window.innerHeight;
 var projectionHA = d3.geoMercator()
                         .center([-78, 41.5])
                         .translate([widthHA/2, heightHA / 2]) 
-                        .scale([3000])
+                        .scale([3500])
 
+
+var zoomHA = [-68.60945, 44.10] // zoom destination for dairy zoom
 var pathHA = d3.geoPath(projectionHA);
 
 var woolGrp = svgHA.append("g");
@@ -296,6 +309,7 @@ var railsGrp = svgHA.append("g");
 
 var stateLabGrp = svgHA.append("g");
 var waterLabGrp = svgHA.append("g");
+var cityLabGrp = svgHA.append("g");
 
 // DATA VARIABLES
 
@@ -411,142 +425,192 @@ function woolUpdate(source, thisYear) {
 
 };
 
+// MILK LEGEND DIMENSIONS:
+
+var legendDim = 20;
+var legendPadding = 5;
+var legendBorder = 10; // border padding
+var legendWidth = 100;
+var legendTitleHeight = 30;
+var legendHeight = (5*legendDim) + (4*legendPadding) + (2*legendBorder) + legendTitleHeight;
+
+var milkLegendSVG = d3.select("#milkLeg")
+                      .append("svg")
+                      .attr("id", "milkLegendSVG")
+                      .attr("width", legendWidth)
+                      .attr("height", legendHeight);
+                      
+// group to wrap all elements
+var milkLegendGroup = milkLegendSVG.append("g")
+                                   .attr("opacity", 0)
+// background rectangle for milk legend:
+var milkLegendBack = milkLegendGroup.append("rect")
+             .attr("width", legendWidth)
+             .attr("height", legendHeight)
+             .attr("fill", "black")
+
+var milkLegend = milkLegendGroup.append("g")
+
+
 function milkUpdate(source, thisYear) {
 
     d3.csv(source).then(function(data) {
 
+        if (thisYear >= 1880) {
 
-        var filtData = data.filter(function(d) {
-            return d.YEAR == thisYear;
-        })
+            var filtData = data.filter(function(d) {
+                return d.YEAR == thisYear;
+            })
 
-        var minFilt = d3.min(filtData, function(d) {
-            return +d.acreMILK;
-        });
+            var minFilt = d3.min(filtData, function(d) {
+                return +d.acreMILK;
+            });
 
+            var maxFilt = d3.max(filtData, function(d) {
+                return +d.acreMILK;
+            });
 
-        var maxFilt = d3.max(filtData, function(d) {
-            return +d.acreMILK;
-        });
+            var milkArray = filtData.map(function(d) {
+                return +d.acreMILK;
+            });
 
-        var milkArray = filtData.map(function(d) {
-            return +d.acreMILK;
-        });
+            var milkArraySort = milkArray.sort(d3.ascending);
 
-        var milkArraySort = milkArray.sort(d3.ascending);
-
-        var color = d3.scaleCluster()
-                        .domain(milkArraySort)
-                        .range(["#f7fbff","#e1edf8","#cadef0","#abcfe6","#82badb","#59a1cf","#3787c0","#1c6aaf","#0b4d94","#08306b"]);
-
-
-        milkGrp.selectAll("path")
-                .transition()
-                .duration(500)
-                .style("fill", function(d) {
-
-                var countyFIPS = d.properties.FIPS;
-
-                var selectCounty = filtData
-                .filter(function(d) {
-
-                    return d.FIPS == countyFIPS;
-
-                });
-
-                if (selectCounty.length != 0) {
-
-                    var dataValue = +selectCounty[0].acreMILK;
+           /*var color = d3.scaleQuantile()
+                            .domain([minFilt, d3.max(milkArraySort)])
+                            .range(["#f7fbff","#e1edf8","#cadef0","#abcfe6","#82badb","#59a1cf","#3787c0","#1c6aaf","#0b4d94","#08306b"]);*/
 
 
-                    return color(dataValue);
+            var color = d3.scaleCluster()
+                            .domain(milkArraySort)
+                            .range(["#f7fbff","#e1edf8","#cadef0","#abcfe6","#82badb","#59a1cf","#3787c0","#1c6aaf","#0b4d94","#08306b"]);
 
-                } else {
+            milkGrp.selectAll("path")
+                    .transition()
+                    .duration(500)
+                    .style("fill", function(d) {
 
-                    return "white";
+                    var countyFIPS = d.properties.FIPS;
 
-                };
+                    var selectCounty = filtData
+                    .filter(function(d) {
 
+                        return d.FIPS == countyFIPS;
 
-                })
-                .style("mix-blend-mode", "multiply");
+                    });
 
-                    var colorClusters = color.clusters()
-                    var f = d3.format(".1e")
+                    if (selectCounty.length != 0) {
 
-                    var milkLegendData = [{index: 0, fill: "#e1edf8", value: minFilt + " to " + f(colorClusters[1])},
-                                    {index: 1, fill: "#abcfe6", value: f(colorClusters[1]) + " to " + f(colorClusters[3])},
-                                    {index: 2,fill: "#59a1cf", value: f(colorClusters[3]) + " to " + f(colorClusters[5])},
-                                    {index: 3, fill: "#1c6aaf", value: f(colorClusters[5]) + " to " + f(colorClusters[7])},
-                                    {index: 4, fill: "#08306b", value: f(colorClusters[7]) + " to " + f(maxFilt)}]
-
-                        var milkLegend = svgHA.append("g").attr("opacity", 0)
-
-                        var contWindow = svgHA.node().getBoundingClientRect()
+                        var dataValue = +selectCounty[0].acreMILK;
 
 
-                        var legendDim = 20
-                        var legendPadding = 5
+                        return color(dataValue);
 
-                        
-                        milkLegend.selectAll("rect")
-                                .data(milkLegendData)
-                                .enter()
-                                .append("rect")
-                                .attr("width", legendDim)
-                                .attr("height", legendDim)
-                                .attr("x", contWindow.width - 200)
-                                .attr("y", function(d) {
-                                    return (d.index * (legendDim + legendPadding)) + contWindow.height - 150;
-                                })
-                                .attr("fill", function(d) {
-                                    return d.fill
-                                })
+                    } else {
+
+                        return "white";
+
+                    };
 
 
+                    })
+                    .style("mix-blend-mode", "multiply");
+        }
 
                         if (thisYear == 1880) {
-                        milkLegend.transition()
-                                    .duration(1000)
-                                    .attr('opacity', 1)
 
-                        milkLegend.selectAll("text")
+                        var colorClusters = color.clusters();
+                        var f = d3.format(".1f");
+
+                        const meter2conversion = 4046.86;
+                        for(var i=0; i<colorClusters.length; i++) {
+                            //Let's take the constant factor as 2
+                            colorClusters[i] = colorClusters[i] * meter2conversion;
+                        }
+                    
+    
+                        var milkLegendData = [{index: 0, fill: "#e1edf8", value: minFilt + " – " + f(colorClusters[1])},
+                                        {index: 1, fill: "#abcfe6", value: f(colorClusters[1])  + " – " + f(colorClusters[3])},
+                                        {index: 2,fill: "#59a1cf", value: f(colorClusters[3]) + " – " + f(colorClusters[5])},
+                                        {index: 3, fill: "#1c6aaf", value: f(colorClusters[5]) + " – " + f(colorClusters[7])},
+                                        {index: 4, fill: "#08306b", value: f(colorClusters[7]) + " – " + f(maxFilt * meter2conversion)}];
+        
+                        milkLegend.selectAll("rect")
                                     .data(milkLegendData)
                                     .enter()
+                                    .append("rect")
+                                    .attr("width", legendDim)
+                                    .attr("height", legendDim)
+                                    .attr("x", legendBorder)
+                                    .attr("y", function(d) {
+                                        return (d.index * (legendDim + legendPadding) + legendBorder + legendTitleHeight);
+                                    })
+                                    .attr("fill", function(d) {
+                                        return d.fill;
+                                    })
+
+                        milkLegendGroup.transition()
+                                        .duration(1000)
+                                        .attr('opacity', 1)
+
+                        var texts = milkLegend.selectAll("text")
+                                              .data(milkLegendData);
+
+
+                        texts.enter()
                                     .append("text")
                                     .attr("class", "legendText")
                                     .attr("fill", "white")
-                                    .attr("x",(contWindow.width - 200) + (legendDim + legendPadding))
+                                    .attr("x", legendBorder + legendDim + legendPadding)
                                     .attr("y", function(d) {
-                                    return (d.index * (legendDim + legendPadding)) + (contWindow.height - 150) + (0.5*legendDim) + legendPadding;
+                                    return (d.index * (legendDim + legendPadding) + legendBorder + (0.5 * legendDim) + 5 + legendTitleHeight); // 5 is half of the font size
                                     })
                                     .text(function(d) {
                                     return d.value;
                                     });
 
-                        } else if (thisYear >= 1900) {
+                        } else if (thisYear == 1900) {
 
-                        milkLegend.selectAll("text")
+                            var colorClusters = color.clusters();
+                            var f = d3.format(".1f");
+
+                            const meter2conversion = 4046.86;
+                            for(var i=0; i<colorClusters.length; i++) {
+                                colorClusters[i] = colorClusters[i] * meter2conversion;
+                        }
+
+                            var milkLegendData = [{index: 0, fill: "#e1edf8", value:    minFilt + " – " + f(colorClusters[1])},
+                                {index: 1, fill: "#abcfe6", value: f(colorClusters[1])  + " – " + f(colorClusters[3])},
+                                {index: 2,fill: "#59a1cf", value: f(colorClusters[3]) + " – " + f(colorClusters[5])},
+                                {index: 3, fill: "#1c6aaf", value: f(colorClusters[5]) + " – " + f(colorClusters[7])},
+                                {index: 4, fill: "#08306b", value: f(colorClusters[7]) + " – " + f(maxFilt * meter2conversion)}];
+
+                            /*milkLegend.selectAll("text")
+                                      .attr("opacity", 1)
+                                      .transition()
+                                      .attr("opacity", 0)
+                                      .remove()*/
+
+                            var texts = milkLegend.selectAll("text")
                                     .data(milkLegendData)
-                                    .enter()
-                                    .attr("class", "legendText")
-                                    .attr("fill", "white")
-                                    .attr("x",(contWindow.width - 200) + (legendDim + legendPadding))
-                                    .attr("y", function(d) {
-                                    return (d.index * (legendDim + legendPadding)) + (contWindow.height - 150) + (0.5*legendDim) + legendPadding;
-                                    })
-                                    .text(function(d) {
+
+                                texts.text(function(d) {
                                     return d.value;
-                                    });
+                                    })
+                                    /*.attr("opacity", 0)
+                                    .transition()*/
+                                    .attr("opacity", 1);
+                                    
+                                    
 
                         }
 
-                        milkLegend.append("text")
-                                .attr("class", "legendText")
-                                .attr("x", contWindow.width - 200)
-                                .attr("y", contWindow.height - 170)
+                        milkLegendGroup.append("text")
+                                .attr("class", "legendTitle")
+                                .attr("x", legendBorder)
+                                .attr("y", legendBorder + 12)
                                 .attr("fill", "white")
-                                .text("Milk produced per acre (gallons)")
+                                .text("gallons / m²")
 
 
     });
@@ -651,7 +715,13 @@ function drawLabel(data, group, circleRadius) {
                 return 50
             }
             })
-            .attr("text-anchor", "middle")
+            .attr("text-anchor", function(d) {
+                if (d.name == "Boston, MA" || d.name == "New York, NY") {
+                    return "end";
+                } else {
+                    return "middle";
+                }
+            })
             .text(function(d) {
             return d.name;
             })
@@ -912,9 +982,15 @@ function handleStepHA2(response) {
         if (dataStep == 0) {
             drawLabel(centroids, stateLabGrp, 3)
             updateDataHA(1840);
-            d3.select("#HAYear")
+            d3.select("#titleYearWrapper")
                 .transition()
                 .style("opacity", 1)
+
+            // draw title
+            d3.select("#mapTitleText")
+              .text("Wool Production")
+              .transition()
+              .style("opacity", 1)
         }
         else if (dataStep == 1) {
             drawBoundaries(canals, canalsGrp, "rgb(0, 0, 0)", "1.5px", "rgba(0, 0, 0, 0)");
@@ -937,6 +1013,14 @@ function handleStepHA2(response) {
         }
         else if (dataStep == 8) {
             updateDataHA(1880)
+            drawLabel(centroidDairy, cityLabGrp, 3)
+
+            d3.select("#mapTitleText")
+              .text("Milk Production")
+
+            milkGrp.selectAll("path")
+                    .transition()
+                    .attr("fill-opacity", 1)
 
             canalsGrp.selectAll("path")
                         .transition()
@@ -953,7 +1037,13 @@ function handleStepHA2(response) {
                         .remove()
 
             // drawRail(railroads)
-                        
+            
+            var zoomCent = projectionHA(zoomHA);
+            var x = widthHA/2 - zoomCent[0];
+            var y = heightHA/2 - zoomCent[1];
+            svgHA.transition()
+                 .duration(750)
+                 .attr("transform",  "translate(" + x + "," + y + ")scale(1.8)")
         
         }
         else if (dataStep == 9) {
@@ -968,9 +1058,9 @@ function handleStepHA2(response) {
     else if(response.direction == "up") {
         if (dataStep == 0) {
             updateDataHA(1840);
-            d3.select("#HAYear")
+            d3.select("#titleYearWrapper")
                 .transition()
-                .style("opacity", 1)
+                .style("opacity", 0)
         }
         else if (dataStep == 1) {
             canalsGrp.selectAll("path")
@@ -978,9 +1068,9 @@ function handleStepHA2(response) {
                         .style("stroke-opacity", 0)
                         .remove()
 
-        waterLabGrp.transition()
-                        .style("fill-opacity", 0)
-                        .remove()	         
+            waterLabGrp.transition()
+                            .style("fill-opacity", 0)
+                            .remove()	         
 
 
 
@@ -1008,6 +1098,35 @@ function handleStepHA2(response) {
             milkGrp.selectAll("path")
                     .transition()
                     .attr("fill-opacity", 0)
+
+            var zoomCent = projectionHA(zoomHA);
+            var x = widthHA/2 - zoomCent[0];
+            var y = heightHA/2 - zoomCent[1];
+            svgHA.transition()
+                 .duration(750)
+                 .attr("transform",  "translate(" + -x + "," + -y + ")")
+                 .attr("transform", "scale(1)")
+
+            d3.select("#mapTitleText")
+                 .text("Wool Production")
+
+            milkLegendGroup.transition()
+                           .duration(1000)
+                           .attr("opacity", 0)
+
+            cityLabGrp.selectAll("circle")
+                      .attr("opacity", 1)
+                      .transition()
+                     .duration(1000)
+                       .attr("opacity", 0)
+                       .remove()
+            
+            cityLabGrp.selectAll("text")
+                      .attr("opacity", 1)
+                      .transition()
+                      .duration(1000)
+                      .attr("opacity", 0)
+
         }
         else if (dataStep == 8) {
             updateDataHA(1880)
@@ -1017,6 +1136,7 @@ function handleStepHA2(response) {
             drawBoundaries(canals, canalsGrp2, "rgba(100, 0, 0, 0.3)", "40px", "rgba(0, 0, 0, 0)")
 
             drawLabel(waterCentroid, waterLabGrp, 0)
+
         
         }
         else if (dataStep == 9) {

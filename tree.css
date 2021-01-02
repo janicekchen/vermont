@@ -1,13 +1,19 @@
 
 .stepTree {
-	/*border: 2px solid rgba(25,51,0, 1);*/
 	background-color: rgba(25,51,0, 0);
-	width: 50%;
+	width: 60%;
     opacity: 100%;
+    /*margin-bottom: 100px;*/
+    vertical-align: middle;
+    padding-right: 50px;
+    box-sizing: border-box;
+    height: 100vh;
 
 }
 
-
+.stepTree > * {
+    margin-left: 15%;
+}
 #treetops {
     margin: 0;
     position: relative;
@@ -29,4 +35,11 @@
     margin-top:0;
 }
 
+#container:before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: rgba(255,0,255,0.2); 
+}
 
