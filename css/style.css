@@ -1,0 +1,382 @@
+
+body {
+	background-color: #fff;
+	margin: 0;
+}
+
+/* GENERAL*/
+
+#header {
+	height: 100vh;
+	background: url('../img/pano.jpg');
+	background-size: auto 100%;
+	background-color: #000;
+	display: flex;
+	flex-direction: column;
+}
+
+.littlefoot-footnote_content > p {
+	font-size: 4px;
+}
+
+a {
+	text-decoration: underline;
+	color: #0c3600;
+}
+
+a:hover {
+	color: #186e00;
+}
+
+.sources {
+	display: block;
+	width: 40%;
+	background: rgba(0,0,0,0.05);
+	margin: 100 auto;
+	padding: 25 50;
+}
+
+.sources > h3 {
+	text-align: left;
+	margin: 0;
+}
+
+.sources > h5 {
+	font-family: 'Alata', sans-serif;
+	font-size: 14px;
+	margin-top: 10px;
+}
+
+
+.source-embed {
+	padding: 0 20;
+	width: 100%;
+	box-sizing: border-box;
+	opacity: 15%;
+
+}
+
+.source-embed:hover {
+	opacity: 100%;
+}
+
+.source-embed > p {
+	font-size: 10px;
+	text-align: right;
+
+}
+
+.container {
+	position:-webkit-sticky;
+	position: sticky;
+	top: 0;
+	height: 100vh;
+}
+
+.beigesection {
+	position: relative;
+	overflow: auto;
+}
+
+.colorwash {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background-color: #eceddf;
+	opacity: 0.6;
+	z-index: 2;
+	mix-blend-mode: darken;
+}
+
+/* this is for a general svg object — use ids to differentiate between maps*/
+svg { 
+	position: absolute;
+	/*width: 100%;
+	height: 100%;*/
+}
+
+
+p {
+	font-family: 'Noto Serif TC', serif;
+	font-size: 18px;
+	font-weight: 300;
+	line-height: 1.5;
+	margin: 0;
+	padding: 0.75em;
+}
+
+.dropcap {
+	float: left;
+	line-height: 75%;
+	width: .5em;
+	font-size: 500%;
+	font-weight: 900;
+	padding-top: 5;
+}
+
+
+
+.generalsection {
+	width: 40%;
+	display: block;
+	margin: auto;
+	position: relative;
+	padding-top: 50px;
+}
+
+
+/* HEADER TITLE STYLINGS */
+
+#title-container {
+	height: 70%;
+	position: absolute;
+	top: 30%;
+	left: 5%
+}
+
+#title {	
+	font-family: 'Alata', sans-serif;
+	font-size: 6vw;
+	padding: 0;
+	margin: 0;
+}	
+
+#subtitle {
+	font-family: 'Alata', sans-serif;
+	font-size: 2vw;
+	padding: 0;
+	margin: 0;
+}
+
+#byline {
+	font-family: 'Alata', sans-serif;
+	font-size: 1em;
+	color: black;
+	position: absolute;
+	bottom: 5%;
+	left: 5%;
+}
+
+
+article {
+	position: relative;
+	margin: auto;
+	width: 80%;
+}
+
+
+div.step {
+	margin: 0rem 0rem 8rem auto;
+	padding: 0rem;
+	border: 2px solid rgba(25,51,0, 1);
+	background-color: rgba(25,51,0, 1);
+	height: 150px;
+	width: 2px;
+	opacity: 20%;
+}
+
+.step p {
+	text-align: center;
+	margin: 0.5rem auto;
+	font-size: 1.5rem;
+	opacity: 0%;
+}
+
+.step.is-active {
+	opacity: 80%;
+}
+
+#scrollAerial {
+	margin-bottom: 200px;
+}
+#aerialBlock {
+	box-sizing: border-box;
+	width: 100vw;
+	height: 100vh;
+}
+
+#aerial1962 {
+	opacity: 0;
+}
+
+.aerial {
+	display: inline-flex;
+	align-items: center;
+}
+
+.aerial > img {
+	width: 500px;
+	margin: 25px 50px 10px 0;
+	box-sizing: border-box;
+}
+
+
+/* HISTORICAL AG MAP*/
+
+#scrollHA1 {
+	position: relative;
+}
+
+#scrollHA2 {
+	position: relative;
+}
+
+#mapHA {
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+}
+
+#mapHA > svg {
+	width: 100%;
+	height: 100%;
+	position:relative;
+}
+
+#mapHApict{
+	height: 100%;
+	width: 100%;
+	position: relative;
+}
+
+#picto1 {
+	position: absolute;
+	margin: auto;
+}
+
+.txtValue {
+	font-size: 50px;
+	font-family: 'Alata', sans-serif;
+	font-weight: bold;
+}
+
+.sheepValue {
+	font-size: 15px;
+	font-family: 'Alata', sans-serif;
+}
+
+div.stepText {
+
+	margin: 0 auto 800 auto;
+	padding-top: 15;
+	padding-bottom: 15;
+	padding-right: 30;
+	padding-left: 30;
+	/*border: 7px solid rgba(0,0,0, 0.1);*/
+	background-color: rgba(255,255,255, 1);
+	width: 50%;
+	box-sizing: border-box;
+}
+
+.stepText > p {
+	font-family: 'Noto Serif TC', Georgia, serif;
+	text-align: center;
+}
+
+#wrj {
+	box-sizing: border-box;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	background-image: url("../img/whiteriver.jpg");
+	background-color: black;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	overflow: hidden;
+}
+
+#merino {
+	position: absolute;
+	padding-top: 15%;
+	left: 50%;
+	margin-left: -225px;
+	top: 50%;
+	margin-top: -310px;
+	width: 450px;
+}
+
+#HAYear {
+	font-family: 'Alata', sans-serif;
+	font-size:5em;
+	font-weight: bold;
+	/*position: absolute;*/
+	color: "black";
+	z-index: 3;
+	margin: -20 0;
+}
+
+
+.mapLabel {
+	font-family: 'Alata', sans-serif;
+}
+
+.legendText {
+	font-family: 'Alata', sans-serif;
+	font-size: 10px;
+
+}
+
+p.legendTitle {
+	font-family: 'Alata', sans-serif;
+	font-size: 12px;
+}
+
+.legendTitle {
+	font-family: 'Alata', sans-serif;
+	font-size: 12px;
+}
+
+#sheepLegend {
+	padding-bottom: 60px;
+}
+
+#woolLegend {
+	padding-bottom: 140px;
+}
+
+#woolLegendSVG {
+
+	float: left;
+}
+
+#milkLeg {
+	position: absolute;
+	width: 500px;
+	height: 500px;
+	right: 0;
+	bottom: 0;
+}
+
+#milkLegendSVG {
+	position: absolute;
+	right: 10;
+	bottom: 10;
+}
+
+#mapTitle {
+	position: relative;
+	top: 0;
+	left: 0;
+	padding-left: 10%;
+}
+
+#mapTitleText {
+	font-family: 'Alata', sans-serif;
+	font-size: 30px;
+	margin: 0;
+	z-index: 3;
+}
+
+#titleYearWrapper {
+	position: absolute; 
+	display: flex;
+	flex-direction: column;	
+	width: 40%;
+	margin: auto;
+	left: 32.5%;
+	top: 50px;
+	opacity: 0
+}

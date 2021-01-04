@@ -4,14 +4,13 @@ function init() {
     scroller
         .setup({
             step: '#scrollTree article .stepTree',
-            progress: true,
             offset: 0.5,
             debug: false,
         })
-        .onStepEnter(handleStepProgress);
+        .onStepEnter(handleStepEnter);
 }
 
-function handleStepProgress(response) {
+function handleStepEnter(response) {
     var vid = document.getElementById('treevid');
     console.log(response)
     var duration = 0;
@@ -23,7 +22,13 @@ function handleStepProgress(response) {
     const singleTree = 3.615; //single tree fall time
     var progress = response.progress;
     var step = response.index;
-        if (step == 1) {
+        
+        if (step == 0) {
+            if (vid.currentTime != 0) {
+                vid.currentTime = 0;
+            }
+            vid.pause();
+        } else if (step == 1) {
             if (vid.currentTime != 0) {
                 vid.currentTime = 0;
             }
@@ -32,7 +37,6 @@ function handleStepProgress(response) {
             var pausing_function = function() {
                     if(this.currentTime >= singleTree) {
                         this.pause();
-
                         this.removeEventListener("timeupdate", pausing_function);
                     }
             }
@@ -41,8 +45,12 @@ function handleStepProgress(response) {
             
 
         } else if (step == 2) { 
+                if(this.currentTime != singleTree + 0.1) {
+                    vid.currentTime = singleTree + 0.1;
+                }
                 vid.play();
             }
+
 
 
     

@@ -10,8 +10,8 @@
 		<script src="https://unpkg.com/intersection-observer@0.5.1/intersection-observer.js"></script>
 		<script src="https://unpkg.com/scrollama"></script>
         <script src="https://unpkg.com/textures@1.2.0/dist/textures.js"></script>
-		<link rel="stylesheet" href="sf_style.css?v=2.0">
-		<link rel="stylesheet" href="tree.css">
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="css/tree.css">
     </head>
     <body>
 		<div id = "header">
@@ -32,7 +32,7 @@
 				</p>
 				<p>But these ribbons of farmland are anything but an unchanging past. Over the past four centuries, the threads of trade and conflict have tugged at this landscape, making and remaking these hills into an illusion of pastoral escape—an illusion entwined in, and not at remove from urban life. </p>
 			</section>
-			<img id = "treetops" src = "treetops.jpg">
+			<img id = "treetops" src = "img/treetops.jpg">
 			<!--<video id = "treetops" tabindex = "0" autobuffer = "autobuffer" preload = "preload" muted = "muted">
 				<source type = "video/mp4" src = "treetops.mp4"></source>
 			</video>-->
@@ -42,26 +42,28 @@
 		
 		<div class = "container" id = "treecont">
 				<video id = "treevid" tabindex = "0" autobuffer = "autobuffer" preload = "preload" muted = "muted">
-				<source type = "video/mp4" src="tree.mp4"></source>
+				<source type = "video/mp4" src="img/tree.mp4"></source>
 				</video>
 				<div class = "colorwash"></div>
 		</div>
 		<article style = "left: 0; position: relative; margin: 0; width: 100%">
 			<div class = "stepTree" data-step = "1">
-				<p>
-					<span class = "dropcap" style = "width: 0.7em">F</span>or millennia, these forests have rarely been left undisturbed. Vermont, before it was deemed as such, is, and has been, the heartland of the Western Abenaki people. Under towering American beeches and red maples, they beat back brush and carved silent hunting paths across the forest floor. Hillside pockets were burned to make clearings for settlement, or to lure deer to new tree lines. Squash, corn, and beans were planted in fields rotated every season. The landscape has always been dynamic, shifting with the ebb and flow of community, of war and disease.
-				</p>
-				<p>
-					But it wasn’t until the mass migration of White settlers in the late 18th century that the forest was almost altogether excavated to form the sweeping vistas that we are more familiar with today. In the decade following Vermont’s admission to the Union in 1791, nearly 70,000 settlers flocked to the region and doubled the state’s population. The soils here are rockier if anything else, but the settlers had been sold an idea of agricultural paradise. They snapped up property lots, new patches of ownership etched into hillsides, and set to clearing the forest for farmland. 
-				</p>
+				<div>
+					<p>
+						<span class = "dropcap" style = "width: 0.7em">F</span>or millennia, these forests have rarely been left undisturbed. Vermont, before it was deemed as such, is, and has been, the heartland of the Western Abenaki people. Under towering American beeches and red maples, they beat back brush and carved silent hunting paths across the forest floor. Hillside pockets were burned to make clearings for settlement, or to lure deer to new tree lines. Squash, corn, and beans were planted in fields rotated every season. The landscape has always been dynamic, shifting with the ebb and flow of community, of war and disease.
+					</p>
+					<p>
+						But it wasn’t until the mass migration of White settlers in the late 18th century that the forest was almost altogether excavated to form the sweeping vistas that we are more familiar with today. In the decade following Vermont’s admission to the Union in 1791, nearly 70,000 settlers flocked to the region and doubled the state’s population. The soils here are rockier if anything else, but the settlers had been sold an idea of agricultural paradise. They snapped up property lots, new patches of ownership etched into hillsides, and set to clearing the forest for farmland. 
+					</p>
+				</div>
 			</div>
 			<div class = "stepTree" data-step = "2" style = "height: 100vh; background-color: black;">
-				<p style = 'color: white; position: relative; top: 40%'>
+				<p style = 'color: white;'>
 					Early on, the trees were girdled; a strip of bark would be hacked away from the base of each tree in a narrow ring. Over several years, the roots would wither, cut off from the sugars made in the leaves. 
 				</p>
 			</div>
-			<div class = "stepTree" data-step = "3" style = "position: relative;">
-				<div style = "position: absolute; top: 25vh">
+			<div class = "stepTree" data-step = "3" style = "margin: 15vh 0">
+				<div>
 					<p>
 						In later
 						years, the trees would simply be felled and left to dry over the winter. The
@@ -74,12 +76,14 @@
 					</p>
 				</div>
 			</div>
+			<div class = "stepTree" data-step = "4" style = "margin: 0">
+			</div>
 		</article>
 	</section>
 	<script type = 'text/javascript' src = 'tree.js'></script>
 	<section id = "scrollHA1" style = "background-color: #F4F4EC">
 		<div class = "container">
-				<img id = "merino" src = "merino.png">
+				<img id = "merino" src = "img/merino.png">
 			<div id = "mapHApict"></div>
 		</div>
 		<article>
