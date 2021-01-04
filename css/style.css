@@ -6,7 +6,7 @@ body {
 
 /* GENERAL*/
 
-@media (max-width: 1200px) {
+@media (max-aspect-ratio: 3/2) {
 	#screensize {
 		width: 100%;
 		height: 100%;
@@ -20,7 +20,7 @@ body {
 	}
 }
 
-@media (min-width: 1201px) {
+@media (min-aspect-ratio: 3/2) {
 	#screensize {
 		width: 100%;
 		height: 100%;
