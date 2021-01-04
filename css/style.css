@@ -6,6 +6,38 @@ body {
 
 /* GENERAL*/
 
+@media (max-width: 1200px) {
+	#screensize {
+		width: 100%;
+		height: 100%;
+		opacity: 1;
+		background-color: black;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: fixed;
+		z-index: 5;
+	}
+}
+
+@media (min-width: 1201px) {
+	#screensize {
+		width: 100%;
+		height: 100%;
+		opacity: 0;
+		color: black;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: fixed;
+	}
+}
+
+#screensize > p {
+	color: white;
+}
+
+
 #header {
 	height: 100vh;
 	background: url('../img/pano.jpg');
@@ -42,7 +74,7 @@ a:hover {
 }
 
 .sources > h5 {
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Alata', sans-serif;
 	font-size: 14px;
 	margin-top: 10px;
 }
@@ -252,13 +284,13 @@ div.step {
 
 .txtValue {
 	font-size: 50px;
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Alata', sans-serif;
 	font-weight: bold;
 }
 
 .sheepValue {
 	font-size: 15px;
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Alata', sans-serif;
 }
 
 div.stepText {
@@ -303,7 +335,7 @@ div.stepText {
 }
 
 #HAYear {
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Alata', sans-serif;
 	font-size:5em;
 	font-weight: bold;
 	/*position: absolute;*/
@@ -314,22 +346,22 @@ div.stepText {
 
 
 .mapLabel {
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Alata', sans-serif;
 }
 
 .legendText {
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Alata', sans-serif;
 	font-size: 10px;
 
 }
 
 p.legendTitle {
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Alata', sans-serif;
 	font-size: 12px;
 }
 
 .legendTitle {
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Alata', sans-serif;
 	font-size: 12px;
 }
 
@@ -368,7 +400,7 @@ p.legendTitle {
 }
 
 #mapTitleText {
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Alata', sans-serif;
 	font-size: 30px;
 	margin: 0;
 	z-index: 3;
