@@ -42,7 +42,7 @@ a:hover {
 }
 
 .sources > h5 {
-	font-family: 'Alata', sans-serif;
+	font-family: 'Roboto', sans-serif;
 	font-size: 14px;
 	margin-top: 10px;
 }
@@ -137,21 +137,25 @@ p {
 }
 
 #title {	
-	font-family: 'Alata', sans-serif;
+	font-family: 'Roboto', sans-serif;
 	font-size: 6vw;
 	padding: 0;
 	margin: 0;
+	font-weight: 800;
+	text-rendering:optimizeLegibility;
 }	
 
 #subtitle {
-	font-family: 'Alata', sans-serif;
+	font-family: 'Roboto', sans-serif;
 	font-size: 2vw;
 	padding: 0;
 	margin: 0;
+	font-weight: normal;
+	font-style: normal;
 }
 
 #byline {
-	font-family: 'Alata', sans-serif;
+	font-family: 'Roboto', sans-serif;
 	font-size: 1em;
 	color: black;
 	position: absolute;
@@ -248,13 +252,13 @@ div.step {
 
 .txtValue {
 	font-size: 50px;
-	font-family: 'Alata', sans-serif;
+	font-family: 'Roboto', sans-serif;
 	font-weight: bold;
 }
 
 .sheepValue {
 	font-size: 15px;
-	font-family: 'Alata', sans-serif;
+	font-family: 'Roboto', sans-serif;
 }
 
 div.stepText {
@@ -299,7 +303,7 @@ div.stepText {
 }
 
 #HAYear {
-	font-family: 'Alata', sans-serif;
+	font-family: 'Roboto', sans-serif;
 	font-size:5em;
 	font-weight: bold;
 	/*position: absolute;*/
@@ -310,22 +314,22 @@ div.stepText {
 
 
 .mapLabel {
-	font-family: 'Alata', sans-serif;
+	font-family: 'Roboto', sans-serif;
 }
 
 .legendText {
-	font-family: 'Alata', sans-serif;
+	font-family: 'Roboto', sans-serif;
 	font-size: 10px;
 
 }
 
 p.legendTitle {
-	font-family: 'Alata', sans-serif;
+	font-family: 'Roboto', sans-serif;
 	font-size: 12px;
 }
 
 .legendTitle {
-	font-family: 'Alata', sans-serif;
+	font-family: 'Roboto', sans-serif;
 	font-size: 12px;
 }
 
@@ -364,7 +368,7 @@ p.legendTitle {
 }
 
 #mapTitleText {
-	font-family: 'Alata', sans-serif;
+	font-family: 'Roboto', sans-serif;
 	font-size: 30px;
 	margin: 0;
 	z-index: 3;
