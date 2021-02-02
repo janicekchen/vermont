@@ -50,12 +50,26 @@
     right: 0;
     opacity: 1;
     position: absolute;
+    z-index: 2;
+    background-color: black;
+    display: block;
+}
+
+
+#treevid2 {
+    height: 100vh;
+    right: 0;
+    opacity: 1;
+    position: absolute;
     z-index: 1;
+    display: block;
 }
 
 #scrollTree {
     position: relative;
     margin-top:0;
+    margin-bottom:0;
+    border: 0;
 }
 
 #container:before {

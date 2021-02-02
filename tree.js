@@ -12,44 +12,74 @@ function init() {
 
 function handleStepEnter(response) {
     var vid = document.getElementById('treevid');
-    console.log(response)
+    var vid2 = document.getElementById('treevid2');
+
     var duration = 0;
 
     vid.onloadedmetadata = function() {
         duration = this.duration;
       };
+
+    vid2.onloadedmetadata = function() {
+        duration = this.duration;
+      };
       
     const singleTree = 3.615; //single tree fall time
-    var progress = response.progress;
+    //var progress = response.progress;
     var step = response.index;
-        
-        if (step == 0) {
-            if (vid.currentTime != 0) {
-                vid.currentTime = 0;
-            }
-            vid.pause();
-        } else if (step == 1) {
-            if (vid.currentTime != 0) {
-                vid.currentTime = 0;
-            }
-            vid.play()
 
-            var pausing_function = function() {
+    var pausing_function = function() {
                     if(this.currentTime >= singleTree) {
                         this.pause();
                         this.removeEventListener("timeupdate", pausing_function);
                     }
             }
-            
-            vid.addEventListener("timeupdate", pausing_function);
-            
 
-        } else if (step == 2) { 
-                if(this.currentTime != singleTree + 0.1) {
-                    vid.currentTime = singleTree + 0.1;
-                }
-                vid.play();
+    vid.addEventListener("timeupdate", pausing_function);
+
+
+    if (response.direction == "down") {
+        if (step == 0) {
+            if (vid.currentTime != 0) {
+                vid.currentTime = 0;
             }
+            vid.pause();
+            vid2.pause();
+        } else if (step == 1) {
+            if (vid.currentTime != 0) {
+                vid.currentTime = 0;
+            }
+            vid.play();
+            
+        } else if (step == 2) { 
+                d3.select("#treevid")
+                  .style("opacity", 0);
+
+                vid2.play();
+        }
+
+    } else if (response.direction == "up") {
+        if (step == 0) {
+            if(vid.currentTime != 0) {
+                vid.currentTime = 0;
+            };
+            if(vid2.currentTime !=0) {
+                vid2.currentTime = 0;
+            }
+            vid.pause();
+            vid2.pause();
+        } else if (step ==1) {
+            if (vid.currentTime != 0) {
+                vid.currentTime = 0;
+            }
+            d3.select("#treevid")
+              .style("opacity", 1);
+
+            vid.play();
+
+        }
+    }
+        
 
 
 
