@@ -519,57 +519,61 @@ function milkUpdate(source, thisYear) {
 
                         if (thisYear == 1880) {
 
-                        var colorClusters = color.clusters();
-                        var f = d3.format(".1f");
+                            var colorClusters = color.clusters();
+                            var f = d3.format(".1f");
 
-                        const meter2conversion = 4046.86;
-                        for(var i=0; i<colorClusters.length; i++) {
-                            //Let's take the constant factor as 2
-                            colorClusters[i] = colorClusters[i] * meter2conversion;
-                        }
-                    
+                            const meter2conversion = 4046.86;
+                            for(var i=0; i<colorClusters.length; i++) {
+                                //Let's take the constant factor as 2
+                                colorClusters[i] = colorClusters[i] * meter2conversion;
+                            }
+                        
     
-                        var milkLegendData = [{index: 0, fill: "#e1edf8", value: minFilt + " – " + f(colorClusters[1])},
-                                        {index: 1, fill: "#abcfe6", value: f(colorClusters[1])  + " – " + f(colorClusters[3])},
-                                        {index: 2,fill: "#59a1cf", value: f(colorClusters[3]) + " – " + f(colorClusters[5])},
-                                        {index: 3, fill: "#1c6aaf", value: f(colorClusters[5]) + " – " + f(colorClusters[7])},
-                                        {index: 4, fill: "#08306b", value: f(colorClusters[7]) + " – " + f(maxFilt * meter2conversion)}];
-        
-                        milkLegend.selectAll("rect")
-                                    .data(milkLegendData)
-                                    .enter()
-                                    .append("rect")
-                                    .attr("width", legendDim)
-                                    .attr("height", legendDim)
-                                    .attr("x", legendBorder)
-                                    .attr("y", function(d) {
-                                        return (d.index * (legendDim + legendPadding) + legendBorder + legendTitleHeight);
-                                    })
-                                    .attr("fill", function(d) {
-                                        return d.fill;
-                                    })
+                            var milkLegendData = [{index: 0, fill: "#e1edf8", value: minFilt + " – " + f(colorClusters[1])},
+                                            {index: 1, fill: "#abcfe6", value: f(colorClusters[1])  + " – " + f(colorClusters[3])},
+                                            {index: 2,fill: "#59a1cf", value: f(colorClusters[3]) + " – " + f(colorClusters[5])},
+                                            {index: 3, fill: "#1c6aaf", value: f(colorClusters[5]) + " – " + f(colorClusters[7])},
+                                            {index: 4, fill: "#08306b", value: f(colorClusters[7]) + " – " + f(maxFilt * meter2conversion)}];
+            
+                            milkLegend.selectAll("rect")
+                                        .data(milkLegendData)
+                                        .enter()
+                                        .append("rect")
+                                        .attr("width", legendDim)
+                                        .attr("height", legendDim)
+                                        .attr("x", legendBorder)
+                                        .attr("y", function(d) {
+                                            return (d.index * (legendDim + legendPadding) + legendBorder + legendTitleHeight);
+                                        })
+                                        .attr("fill", function(d) {
+                                            return d.fill;
+                                        })
 
-                        milkLegendGroup.transition()
-                                        .duration(1000)
-                                        .attr('opacity', 1)
+                            milkLegendGroup.transition()
+                                            .duration(1000)
+                                            .attr('opacity', 1)
 
-                        var texts = milkLegend.selectAll("text")
-                                              .data(milkLegendData);
+                            var texts = milkLegend.selectAll("text")
+                                                  .data(milkLegendData);
 
 
-                        texts.enter()
-                                    .append("text")
-                                    .attr("class", "legendText")
-                                    .attr("fill", "white")
-                                    .attr("x", legendBorder + legendDim + legendPadding)
-                                    .attr("y", function(d) {
-                                    return (d.index * (legendDim + legendPadding) + legendBorder + (0.5 * legendDim) + 5 + legendTitleHeight); // 5 is half of the font size
-                                    })
-                                    .text(function(d) {
+                            texts.enter()
+                                        .append("text")
+                                        .attr("class", "legendText")
+                                        .attr("fill", "white")
+                                        .attr("x", legendBorder + legendDim + legendPadding)
+                                        .attr("y", function(d) {
+                                        return (d.index * (legendDim + legendPadding) + legendBorder + (0.5 * legendDim) + 5 + legendTitleHeight); // 5 is half of the font size
+                                        })
+                                        .text(function(d) {
+                                        return d.value;
+                                        });
+
+                            texts.text(function(d) {
                                     return d.value;
-                                    });
+                                    })
 
-                        } else if (thisYear == 1900) {
+                        } else if (thisYear == 1900 || thisYear == 1920) {
 
                             var colorClusters = color.clusters();
                             var f = d3.format(".1f");
@@ -577,7 +581,7 @@ function milkUpdate(source, thisYear) {
                             const meter2conversion = 4046.86;
                             for(var i=0; i<colorClusters.length; i++) {
                                 colorClusters[i] = colorClusters[i] * meter2conversion;
-                        }
+                                }
 
                             var milkLegendData = [{index: 0, fill: "#e1edf8", value:    minFilt + " – " + f(colorClusters[1])},
                                 {index: 1, fill: "#abcfe6", value: f(colorClusters[1])  + " – " + f(colorClusters[3])},
@@ -602,7 +606,6 @@ function milkUpdate(source, thisYear) {
                                     .attr("opacity", 1);
                                     
                                     
-
                         }
 
                         milkLegendGroup.append("text")
