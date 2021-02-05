@@ -610,7 +610,7 @@ function milkUpdate(source, thisYear) {
                                 .attr("x", legendBorder)
                                 .attr("y", legendBorder + 12)
                                 .attr("fill", "white")
-                                .text("gallons / m²")
+                                .text("gallons / acre")
 
 
     });
@@ -1016,7 +1016,7 @@ function handleStepHA2(response) {
             drawLabel(centroidDairy, cityLabGrp, 3)
 
             d3.select("#mapTitleText")
-              .text("Milk Production")
+              .text("Milk Sales")
 
             milkGrp.selectAll("path")
                     .transition()
