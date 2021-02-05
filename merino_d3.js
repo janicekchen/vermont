@@ -301,7 +301,7 @@ var zoomHA = [-68.60945, 44.10] // zoom destination for dairy zoom
 var pathHA = d3.geoPath(projectionHA);
 
 var woolGrp = svgHA.append("g");
-var milkGrp = svgHA.append("g");
+var milkGrp = svgHA.append("g").attr("opacity", 0);
 var statesGrp = svgHA.append("g");
 var canalsGrp = svgHA.append("g");
 var canalsGrp2 = svgHA.append("g");
@@ -1021,9 +1021,9 @@ function handleStepHA2(response) {
             d3.select("#mapTitleText")
               .text("Milk Sales")
 
-            milkGrp.selectAll("path")
+            milkGrp
                     .transition()
-                    .attr("fill-opacity", 1)
+                    .attr("opacity", 1)
 
             canalsGrp.selectAll("path")
                         .transition()
@@ -1098,9 +1098,9 @@ function handleStepHA2(response) {
             updateDataHA(1870)
         }
         else if (dataStep == 7) {
-            milkGrp.selectAll("path")
+            milkGrp
                     .transition()
-                    .attr("fill-opacity", 0)
+                    .attr("opacity", 0)
 
             var zoomCent = projectionHA(zoomHA);
             var x = widthHA/2 - zoomCent[0];
@@ -1129,6 +1129,7 @@ function handleStepHA2(response) {
                       .transition()
                       .duration(1000)
                       .attr("opacity", 0)
+                      .remove()
 
         }
         else if (dataStep == 8) {
